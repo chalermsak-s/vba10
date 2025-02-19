@@ -1,0 +1,12 @@
+Step 1 (No Relative References):
+
+Record a macro to color cells D10, D11, E10, and E11.
+
+Run the macro: It will always color D10, D11, E10, and E11, no matter where the active cell is.
+
+Step 2 (With Relative References):
+
+Record a macro to color cells D10, D11, E10, and E11 with relative references enabled.
+
+Run the macro: If the active cell is F10, it will color F10, F11, G10, and G11.
+
