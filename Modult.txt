@@ -1,0 +1,83 @@
+Sub TestCalSalary()
+'
+' TestCalSalary Macro
+'
+
+'
+    ActiveCell.FormulaR1C1 = "=(RC[-4]*RC[-3]/100)+(RC[-4]*RC[-2]/100)"
+    ActiveCell.Offset(0, 1).Range("A1").Select
+    Application.CutCopyMode = False
+    ActiveCell.FormulaR1C1 = "=RC[-5]+RC[-2]-RC[-1]"
+    ActiveCell.Offset(0, -1).Range("A1:B1").Select
+    Selection.Style = "Currency"
+End Sub
+
+Sub TestCalSalaryHard()
+    Dim atSheet As Worksheet
+    Dim selRange As Range
+    
+    Dim slRange As Range
+    Dim taRange As Range
+    Dim ssRange As Range
+    Dim otRange As Range
+    
+    Dim tdRange As Range
+    Dim tsRange As Range
+
+    Dim row As Range
+    
+    Set selRange = Selection
+    Set atSheet = selRange.Worksheet
+    
+    For Each row In selRange.Rows.EntireRow
+        Set slRange = row.Columns("B")
+        Set taRange = row.Columns("C")
+        Set ssRange = row.Columns("D")
+        Set otRange = row.Columns("E")
+        
+        Set tdRange = row.Columns("F")
+        Set tsRange = row.Columns("G")
+        
+        tdRange.Formula = "=" & "(" & slRange.Address(False, False) & "*" & taRange.Address(False, False) & "/100)" & _
+            "+" & "(" & slRange.Address(False, False) & "*" & ssRange.Address(False, False) & "/100)"
+        tsRange.Formula = "=" & slRange.Address(False, False) & "+" & otRange.Address(False, False) & _
+            "-" & tdRange.Address(False, False)
+        
+        atSheet.Range(tdRange, tsRange).Style = "Currency"
+    Next row
+End Sub
+Sub TestNoRelative()
+'
+' TestNoRelative Macro
+'
+
+'
+    Range("D10:E11").Select
+    With Selection.Interior
+        .Pattern = xlSolid
+        .PatternColorIndex = xlAutomatic
+        .Color = 255
+        .TintAndShade = 0
+        .PatternTintAndShade = 0
+    End With
+End Sub
+Sub TestRelative()
+'
+' TestRelative Macro
+'
+
+'
+    ActiveCell.Range("A1:B2").Select
+    With Selection.Interior
+        .Pattern = xlSolid
+        .PatternColorIndex = xlAutomatic
+        .Color = 255
+        .TintAndShade = 0
+        .PatternTintAndShade = 0
+    End With
+End Sub
+
+Sub ShowPriceForm()
+    PriceForm.Show
+End Sub
+
