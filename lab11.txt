@@ -1,0 +1,23 @@
+Sub SayHi()
+    ActiveSheet.Range("A5").Value = "Hi, " & ActiveSheet.Range("A1").Value
+End Sub
+
+Function sayHello(name) As String
+    sayHello = "Hello, " & name
+End Function
+
+Function Kilogram2Pound(kg) As Double
+    Kilogram2Pound = kg * 2.20462
+End Function
+
+Function NotAnd(a, b) As Boolean
+    NotAnd = Not (a And b)
+End Function
+
+Function CconvertF(c) As Double
+    CconvertF = ((9 / 5) * c) + 32
+End Function
+
+Function FconvertC(f) As Double
+    FconvertC = (5 / 9) * (f - 32)
+End Function
