@@ -1,1 +1,71 @@
-None
+Option Explicit
+
+Sub loopRange()
+    Dim myCell As Range
+    
+    For Each myCell In Selection
+        If myCell.Value = "book" Then
+            myCell.Interior.ColorIndex = 3
+        ElseIf myCell.Value = "movie" Then
+            myCell.Interior.ColorIndex = 4
+        ElseIf myCell.Value = "" Then
+            myCell.Interior.ColorIndex = xlNone
+        Else
+            myCell.Interior.ColorIndex = 5
+        End If
+    Next myCell
+End Sub
+
+Sub genFormula()
+    Dim cRow As Range
+
+    For Each cRow In Selection.EntireRow
+        cRow.Range("G1").FormulaR1C1 = "=SUM(RC[-5]:RC[-1])"
+        cRow.Range("H1").FormulaR1C1 = _
+            "=IF(RC[-1]>=80,""A""," & _
+                "IF(RC[-1]>=75,""B+""," & _
+                    "IF(RC[-1]>=70,""B""," & _
+                        "IF(RC[-1]>=65,""C+""," & _
+                            "IF(RC[-1]>=60,""C""," & _
+                                "IF(RC[-1]>=55,""D+""," & _
+                                    "IF(RC[-1]>=50,""D"",""F"")" & _
+                                ")" & _
+                            ")" & _
+                        ")" & _
+                    ")" & _
+                ")" & _
+            ")"
+    Next cRow
+End Sub
+
+Sub genMulTable()
+    Dim i, j As Long
+    Dim cCol As Range
+    Dim cCell As Range
+    
+    i = 2
+    For Each cCol In Selection.Columns
+        j = 1
+        For Each cCell In cCol.Cells
+            cCell.Value = (i * j)
+            j = j + 1
+        Next cCell
+        i = i + 1
+    Next cCol
+End Sub
+
+Function FIBOS(n As Integer) As Variant
+    Dim result() As Double
+    ReDim result(1 To n)
+    
+    Dim i As Integer
+    For i = 1 To n
+        If i <= 2 Then
+            result(i) = 1
+        Else
+            result(i) = result(i - 1) + result(i - 2)
+        End If
+    Next i
+    
+    FIBOS = Application.WorksheetFunction.Transpose(result)
+End Function
